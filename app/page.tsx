@@ -22,6 +22,20 @@ const MapComponent = dynamic(() => import('../components/MapComponent'), {
 })
 
 
+const ProfileMenu = dynamic(() => import('../components/ProfileMenu'), {
+  ssr: false,
+})
+// Wrap components that need client-side features in a ClientOnly component
+function ClientOnly({ children }: { children: React.ReactNode }) {
+  const hasMounted = useHasMounted()
+
+  if (!hasMounted) {
+    return null
+  }
+
+  return <>{children}</>
+}
+
 
 export default function Home() {
   return (

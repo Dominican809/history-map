@@ -1,9 +1,19 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Montserrat, Inter } from 'next/font/google'
 import TimelineDropdown from '../components/TimelineDropdown'
 import ProfileMenu from '../components/ProfileMenu'
+import Link from 'next/link'
+import { Globe, Home } from 'lucide-react'
 
-const inter = Inter({ subsets: ['latin'] })
+const montserrat = Montserrat({ 
+  subsets: ['latin'],
+  variable: '--font-montserrat',
+})
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
 
 export const metadata = {
   title: 'Interactive Historical Map',
@@ -16,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${montserrat.variable} ${inter.variable}`}>
       <head>
         <link
           rel="stylesheet"
@@ -25,18 +35,39 @@ export default function RootLayout({
           crossOrigin=""
         />
       </head>
-      <body className={`${inter.className} bg-stone-100 text-stone-800`}>
+      <body className={`font-inter bg-gradient-to-br from-gray-900 to-gray-800 text-gray-100`}>
         <div className="min-h-screen flex flex-col">
-          <header className="bg-stone-200 border-b border-stone-300 p-4 relative z-50">
-            <nav className="flex justify-between items-center">
-              <TimelineDropdown />
-              <ProfileMenu />
+          <header className="glass-effect border-b border-emerald-900/20 p-4 relative z-50">
+            <nav className="flex items-center justify-between max-w-7xl mx-auto">
+              <div className="flex items-center gap-2">
+                <TimelineDropdown />
+              </div>
+              
+              <div className="flex items-center gap-8">
+                <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                  <Globe className="w-8 h-8 text-emerald-400 animate-pulse-slow" />
+                  <span className="text-2xl font-montserrat font-bold gradient-text">
+                    Historical Atlas
+                  </span>
+                </Link>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <Link 
+                  href="/" 
+                  className="button-primary p-2 rounded-lg hover:opacity-80 transition-all"
+                  title="Home"
+                >
+                  <Home className="w-5 h-5" />
+                </Link>
+                <ProfileMenu />
+              </div>
             </nav>
           </header>
           <main className="flex-grow container mx-auto p-4 relative">
             {children}
           </main>
-          <footer className="bg-stone-200 border-t border-stone-300 p-4 text-center">
+          <footer className="glass-effect border-t border-emerald-900/20 p-4 text-center">
             <p>&copy; 2023 Interactive Historical Map. All rights reserved.</p>
           </footer>
         </div>
